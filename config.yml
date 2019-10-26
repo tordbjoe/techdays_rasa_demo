@@ -1,28 +1,28 @@
 # Configuration for Rasa NLU.
 # https://rasa.com/docs/rasa/nlu/components/
-language: en
+language: en #since we use en the pipeline has to be configured manually
 pipeline:
-- model: en_core_web_sm
-  name: SpacyNLP
-- name: SpacyTokenizer
-- name: SpacyEntityExtractor
-  dimensions: ["GPE"]
-- name: CRFEntityExtractor
-- name: EntitySynonymMapper
-- name: CountVectorsFeaturizer
-  token_pattern: (?u)\b\w+\b
-- name: EmbeddingIntentClassifier
+- model: en_core_web_sm #corpus
+  name: SpacyNLP #pretrained entities
+- name: SpacyTokenizer #segment text into words, punctuation marks etc.
+- name: SpacyEntityExtractor #pretrained spacyentity extractor
+  dimensions: ["GPE"] #geo political entities: countries, cities, etc
+- name: CRFEntityExtractor #CRF extracting custom entities (not in pretrained)
+- name: EntitySynonymMapper #synonyms handler
+- name: CountVectorsFeaturizer #creates bag-of-words representation
+  token_pattern: (?u)\b\w+\b #tokenizer for bag-of-words
+- name: EmbeddingIntentClassifier #classifier
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
 policies:
-  - name: MemoizationPolicy
-    max_history: 10
-  - name: KerasPolicy
-    epochs: 100
-    max_history: 10
-  - name: FallbackPolicy
-    nlu_threshold: 0.7
-    core_threshold: 0.3
+  - name: MemoizationPolicy #memorize earlier conversation
+    max_history: 10 #look at the last 10 dialogue histories when predicting
+  - name: KerasPolicy #use a Keras neural network implementation
+    epochs: 100 #training epochs
+    max_history: 10 #look at the last 10 dialogue histories when predicting
+  - name: FallbackPolicy #configure a fallback treshold
+    nlu_threshold: 0.7 #min confidence to accept NLU prediction
+    core_threshold: 0.3 #min confidence to accept action predition
     fallback_action_name: utter_default
-  - name: FormPolicy
+  - name: FormPolicy #handles fillings forms (group of slots)
