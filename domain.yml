@@ -1,0 +1,46 @@
+actions:
+- utter_ask_weather
+- utter_bot_challenge
+- utter_chitchat
+- utter_default
+- utter_greet
+- utter_tell_joke
+entities:
+- city_weather
+forms:
+- get_weather
+intents:
+- chit_chat
+- greet
+- ask_weather
+- tell_joke
+- bot_challenge
+- goodbye
+slots:
+  city_weather:
+    type: text
+  requested_slot:
+    type: unfeaturized
+templates:
+  utter_ask_weather:
+  - text: What city do you want the weather for?
+  utter_bot_challenge:
+  - text: I'm a bot
+  - text: Not really sure what to say
+  utter_chitchat:
+  - text: I'm good
+  - text: Well .. serving those requests
+  utter_default:
+  - text: I'm sorry .. I do not understand
+  utter_dont_know_city:
+  - text: I don't know that city sorry..
+  utter_greet:
+  - text: Hi
+  - text: Hi there
+  - text: Welcome
+  - text: What can I do for you?
+  utter_tell_joke:
+  - text: Don't spell part backwards. It's a trap!
+  - text: I changed my password to "incorrect". So whenever I forget what it is the
+      computer will say "Your password is incorrect"
+  - text: Don't trust atoms, they make up everything
